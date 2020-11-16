@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="2019\Data\Day1Input.txt" />
+    <None Remove="2019\Data\Day2Input.txt" />
+    <None Remove="2019\Data\Day3Input.txt" />
+    <None Remove="2019\Data\Day5Input.txt" />
+    <None Remove="2019\Data\Day6Input.txt" />
+    <None Remove="2019\Data\Day7Input.txt" />
+    <None Remove="2019\Data\Day8Input.txt" />
+    <None Remove="2019\Data\Day9Input.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="2019\Data\Day1Input.txt" />
+    <Content Include="2019\Data\Day2Input.txt" />
+    <Content Include="2019\Data\Day3Input.txt" />
+    <Content Include="2019\Data\Day5Input.txt" />
+    <Content Include="2019\Data\Day6Input.txt" />
+    <Content Include="2019\Data\Day7Input.txt" />
+    <Content Include="2019\Data\Day8Input.txt" />
+    <Content Include="2019\Data\Day9Input.txt" />
+  </ItemGroup>
+
+</Project>
