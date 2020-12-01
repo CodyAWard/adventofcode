@@ -27,4 +27,7 @@
     <Content Include="2019\Data\Day9Input.txt" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+  </Target>
+
 </Project>
