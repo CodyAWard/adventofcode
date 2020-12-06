@@ -45,9 +45,17 @@ namespace AdventOfCode
         private static void ListDays(BaseDay[] allDays)
         {
             Console.WriteLine("== All Days ==");
+            int lastYear = 0;
             foreach (var day in allDays)
             {
-                Console.WriteLine($"   Year: {day.Year()} Day: {day.Day()}");
+                if (lastYear != day.Year())
+                {
+                    lastYear = day.Year();
+                    Console.WriteLine();
+                    Console.WriteLine($"== {day.Year()} ==");
+                }
+
+                Console.WriteLine($"  .{day.Day()}");
             }
         }
 
