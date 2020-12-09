@@ -22,5 +22,10 @@ namespace AdventOfCode.MMXX
         {
             return data.Select(s => int.Parse(s));
         }
+
+        public static IEnumerable<long> AsLongs(this IEnumerable<string> data)
+        {
+            return data.Select(s => long.Parse(s));
+        }
     }
 }
