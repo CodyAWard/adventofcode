@@ -17,75 +17,69 @@ namespace AdventOfCode.MMXX
                 PartB(data);
         }
 
+        private const string LINE_IDENTIFIER_MASK = "mask = ";
+        private const int BITS = 36;
+
         private string PartA(IEnumerable<string> data)
         {
-            var currentMask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-            Dictionary<int, long> memory = new Dictionary<int, long>();
+            var currentMask = "".PadLeft(BITS, 'X');
+            var memory = new Dictionary<int, long>();
 
-            var maskID = "mask = ";
             foreach (var line in data)
             {
-                if (line.StartsWith(maskID))
+                if (line.StartsWith(LINE_IDENTIFIER_MASK))
                 {
-                    currentMask = line.Substring(maskID.Length);
+                    currentMask = line.Substring(LINE_IDENTIFIER_MASK.Length);
                 }
                 else
                 {
                     var address = ParseAddress(line);
                     var value = ParseValue(line);
                     value = ApplyMaskToValue(value, currentMask);
-                    memory[address] = Convert.ToInt64(value, 2);
+                    memory[address] = FromBinary(value);
                 }
             }
 
-            long sum = 0;
-            foreach (var value in memory.Values)
-                sum += value;
-
-            return sum.ToString();
+            return $"Sum of all memory values {memory.Values.Sum()}";
         }
 
         private string PartB(IEnumerable<string> data)
         {
-            var currentMask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-            Dictionary<long, long> memory = new Dictionary<long, long>();
+            var currentMask = "".PadLeft(BITS, 'X');
+            var memory = new Dictionary<long, long>();
 
-            var maskID = "mask = ";
             foreach (var line in data)
             {
-                if (line.StartsWith(maskID))
+                if (line.StartsWith(LINE_IDENTIFIER_MASK))
                 {
-                    currentMask = line.Substring(maskID.Length);
+                    currentMask = line.Substring(LINE_IDENTIFIER_MASK.Length);
                 }
                 else
                 {
                     var address = ParseAddress(line);
                     var value = ParseValue(line);
-                    var binary = Convert.ToString(address, 2);
-                    binary = binary.PadLeft(36, '0');
+                    var binary = ToBinary(address, BITS);
                     var addresses = GetMaskedAddresses(binary, currentMask);
-                    var longValue = Convert.ToInt64(value, 2); 
+                    var longValue = FromBinary(value);
                     foreach (var a in addresses)
                     {
-                        var ad = Convert.ToInt64(a.ToString(), 2);
+                        var ad = FromBinary(a.ToString());
                         memory[ad] = longValue;
                     }
                 }
             }
 
-            long sum = 0;
-            foreach (var value in memory.Values)
-                sum += value;
-
-            return sum.ToString();
+            return $"Sum of all memory values {memory.Values.Sum()}";
         }
+
+        private static string ToBinary(long value, int width) => Convert.ToString(value, 2).PadLeft(width, '0');
+        private static long FromBinary(string value) => Convert.ToInt64(value, 2);
 
         private static string ParseValue(string line)
         {
             var split = line.Split(" = ");
             var value = long.Parse(split[1]);
-            var binary = Convert.ToString(value, 2);
-            binary = binary.PadLeft(36, '0');
+            var binary = ToBinary(value, BITS);
             return binary;
         }
 
