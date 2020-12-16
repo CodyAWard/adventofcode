@@ -37,7 +37,6 @@ namespace AdventOfCode.MMXX
 
         struct Info
         {
-            public int Times;
             public int Last;
             public int Age;
 
@@ -45,7 +44,6 @@ namespace AdventOfCode.MMXX
             {
                 Age = turn - Last;
                 Last = turn;
-                Times++;
             }
         }
 
@@ -55,37 +53,32 @@ namespace AdventOfCode.MMXX
             var spokenNumbers = new Info[target];
             var lastSpoken = -1;
             int turnCounter = 0;
-            void speak(int number)
-            {
-                lastSpoken = number;
-                spokenNumbers[number].Set(turnCounter);
-            }
-
 
             for (int i = 0; i < input.Length; i++)
             {
                 turnCounter++;
-                speak(input[i]);
+                lastSpoken = input[i];
+                spokenNumbers[lastSpoken].Set(turnCounter);
             }
 
-            void turn()
+            while (turnCounter < target)
             {
                 turnCounter++;
 
                 var info = spokenNumbers[lastSpoken];
-                if (info.Times == 1) // was first
-                    speak(0);
+                if (info.Age == info.Last) // was first
+                {
+                    lastSpoken = 0;
+                    spokenNumbers[0].Set(turnCounter);
+                }
                 else
-                    speak(info.Age);
+                {
+                    lastSpoken = info.Age;
+                    spokenNumbers[info.Age].Set(turnCounter);
+                }
             }
 
-            while (true)
-            {
-                if (turnCounter == target)
-                    return lastSpoken.ToString();
-
-                turn();
-            }
+            return lastSpoken.ToString();
         }
     }
 }
