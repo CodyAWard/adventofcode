@@ -35,24 +35,30 @@ namespace AdventOfCode.MMXX
             return RunUntil(data, 30000000);
         }
 
+        struct Info
+        {
+            public int Times;
+            public int Last;
+            public int Age;
+
+            public void Set(int turn)
+            {
+                Age = turn - Last;
+                Last = turn;
+                Times++;
+            }
+        }
+
         private static string RunUntil(IEnumerable<string> data, int target)
         {
             var input = data.First().AsInts().ToArray();
-            var spokenNumbers = new Dictionary<int, List<int>>();
+            var spokenNumbers = new Info[target];
             var lastSpoken = -1;
             int turnCounter = 0;
             void speak(int number)
             {
                 lastSpoken = number;
-
-                if (spokenNumbers.TryGetValue(number, out var info))
-                {
-                    info.Add(turnCounter);
-                }
-                else
-                {
-                    spokenNumbers[number] = new List<int>() { turnCounter };
-                }
+                spokenNumbers[number].Set(turnCounter);
             }
 
 
@@ -66,13 +72,11 @@ namespace AdventOfCode.MMXX
             {
                 turnCounter++;
 
-                var spokenTurns = spokenNumbers[lastSpoken];
-                var count = spokenTurns.Count;
-
-                if (count == 1) // was first
+                var info = spokenNumbers[lastSpoken];
+                if (info.Times == 1) // was first
                     speak(0);
                 else
-                    speak(spokenTurns[count - 1] - spokenTurns[count - 2]);
+                    speak(info.Age);
             }
 
             while (true)
