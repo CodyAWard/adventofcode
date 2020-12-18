@@ -32,7 +32,6 @@ namespace AdventOfCode.MMXX
             return dimension.ActiveCells.Count().ToString();
         }
 
-
         #region Pocket Dimensions
 
         public class PocketDimension4D : PocketDimension<Vector4>
@@ -82,14 +81,14 @@ namespace AdventOfCode.MMXX
                         for (int posZ = (int)ZBounds.X; posZ <= ZBounds.Y; posZ++)
                             for (int posW = (int)WBounds.X; posW <= WBounds.Y; posW++)
                             {
-                                CheckPosition(posX, posY, posZ, posW, out Vector4 pos, out int n);
+                                var pos = new Vector4(posX, posY, posZ, posW);
+                                CheckPosition(pos, out int n);
                                 neighbourCounts.Add(pos, n);
                             }
             }
 
-            protected void CheckPosition(int posX, int posY, int posZ, int posW, out Vector4 pos, out int n)
+            protected void CheckPosition(Vector4 pos, out int n)
             {
-                pos = new Vector4(posX, posY, posZ, posW);
                 n = 0;
                 for (int x = -1; x <= 1; x++)
                     for (int y = -1; y <= 1; y++)
@@ -147,14 +146,14 @@ namespace AdventOfCode.MMXX
                     for (int posY = (int)YBounds.X; posY <= YBounds.Y; posY++)
                         for (int posZ = (int)ZBounds.X; posZ <= ZBounds.Y; posZ++)
                         {
-                            CheckPosition(posX, posY, posZ, out Vector3 pos, out int n);
+                            var pos = new Vector3(posX, posY, posZ);
+                            CheckPosition(pos, out int n);
                             neighbourCounts.Add(pos, n);
                         }
             }
 
-            protected void CheckPosition(int posX, int posY, int posZ, out Vector3 pos, out int n)
+            protected void CheckPosition(Vector3 pos, out int n)
             {
-                pos = new Vector3(posX, posY, posZ);
                 n = 0;
                 for (int x = -1; x <= 1; x++)
                     for (int y = -1; y <= 1; y++)
