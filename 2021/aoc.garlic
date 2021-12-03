@@ -1,0 +1,43 @@
+
+util = 
+{
+    read_file = (path)
+    {
+        file = std.load(path)
+        lines = { count = 0 }
+        line = ""
+
+        // Create an array of lines by parsing each character and breaking on whitespace
+        for (i = 0) (i < file.length) (i++)
+        {
+            c = file[i]
+
+            // whitespace, new line
+            if((c == "\n") || (c == "\r"))
+            {
+                if(line != "")
+                {
+                    line = std.num(line)
+                    lines[lines.count] = line
+                    lines.count++
+                    line = ""
+                }
+            }
+            else
+            {
+                line += c
+            }   
+        }
+
+        // append final line
+        if(line != "")
+        {
+            line = std.num(line)
+            lines[lines.count] = line
+            lines.count++
+            line = ""
+        }
+
+        return = lines
+    }
+}
