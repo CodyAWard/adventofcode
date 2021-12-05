@@ -1,0 +1,47 @@
+compile "aoc.garlic"
+lines = util.read_file("2021_02.txt")
+item_delimitter = { " " }
+
+// Day 02 - Part 01
+x = 0 
+y = 0
+for (i = 0) (i < lines.count) (i++) 
+{
+    item = lines[i]
+    item = util.split(item, item_delimitter)
+    
+    instruction = item[0]
+    value = std.num(item[1])
+
+    if(instruction == "forward") { x += value }
+    elseif(instruction == "up") { y -= value }
+    elseif(instruction == "down") { y += value }
+    else { std.error("unimplemented instruction: " + instruction ) } 
+}
+
+std.log("Day 02 - Part 01: " + (x * y))
+
+
+// Day 02 - Part 02
+x = 0 
+y = 0
+aim = 0
+for (i = 0) (i < lines.count) (i++) 
+{
+    item = lines[i]
+    item = util.split(item, item_delimitter)
+    
+    instruction = item[0]
+    value = std.num(item[1])
+
+    if(instruction == "forward") 
+    { 
+        x += value 
+        y += (aim * value)
+    }
+    elseif(instruction == "up") { aim -= value }
+    elseif(instruction == "down") { aim += value }
+    else { std.error("unimplemented instruction: " + instruction ) } 
+}
+
+std.log("Day 02 - Part 02: " + (x * y))

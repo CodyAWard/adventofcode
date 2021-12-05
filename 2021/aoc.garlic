@@ -1,6 +1,52 @@
 
 util = 
 {
+    split = (str, delimitters)
+    {
+        items = { count = 0 }
+        line = ""
+
+        for (i = 0) (i < str.length) (i++)
+        {
+            c = str[i]
+            is_split = false
+            for (j = 0) (j < delimitters.length) (j++)
+            {
+                d = delimitters[j]
+                if(c == d)
+                {
+                    is_split = true
+                    // todo - add 'break' to the language
+                    j = delimitters.length 
+                }
+            }
+
+            if(is_split)
+            {
+                if(line != "")
+                {
+                    items[items.count] = line
+                    items.count++
+                    line = ""
+                }
+            }
+            else
+            {
+                line += c
+            }   
+        }
+
+        // append final line
+        if(line != "")
+        {
+            items[items.count] = line
+            items.count++
+            line = ""
+        }
+
+        return = items
+    }
+
     read_file = (path)
     {
         file = std.load(path)
@@ -17,7 +63,6 @@ util =
             {
                 if(line != "")
                 {
-                    line = std.num(line)
                     lines[lines.count] = line
                     lines.count++
                     line = ""
@@ -32,7 +77,6 @@ util =
         // append final line
         if(line != "")
         {
-            line = std.num(line)
             lines[lines.count] = line
             lines.count++
             line = ""
