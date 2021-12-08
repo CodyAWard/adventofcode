@@ -1,0 +1,58 @@
+compile "aoc.garlic"
+lines = util.read_file("2021_03.txt")
+
+// Day 03 - Part 01
+
+// Tally up each bit so we can just determine averages
+bits = {}
+for (i = 0) (i < lines.count) (i++) 
+{
+    line = lines[i]
+    for(c = 0) (c < line.length) (c++) 
+    {
+        bit = bits[c]
+        value = std.num(line[c])
+        bit = (bit + value)
+        bits[c] = bit
+    }
+    bits.count = line.length
+}
+
+// Read averages and determine gamma and epsilon
+gamma = {}
+epsilon = {}
+gamma.count = bits.count
+epsilon.count = bits.count
+
+for (i = 0) (i < bits.count) (i++) 
+{
+    bit = bits[i]
+    total = lines.count
+    bit = (bit / total)
+    if(bit > 0.5) 
+    {
+        gamma[i] = 1
+        epsilon[i] = 0
+    }
+    else
+    {
+        gamma[i] = 0
+        epsilon[i] = 1
+    }
+}
+
+gamma = util.binary_array_to_num(gamma)
+epsilon = util.binary_array_to_num(epsilon)
+
+std.log("Day 03 - Part 01: GAMMA:   " + gamma)
+std.log("Day 03 - Part 01: EPSILON: " + epsilon)
+std.log("Day 03 - Part 01: RESULT:  " + (gamma * epsilon))
+
+// Day 03 - Part 02
+
+for (i = 0) (i < lines.count) (i++) 
+{
+
+}
+
+std.log("Day 03 - Part 02: " + "not finished")

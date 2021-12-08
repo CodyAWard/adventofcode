@@ -1,6 +1,23 @@
 
 util = 
 {
+    binary_array_to_num = (binary)
+    {
+        result = 0
+        base = 1
+        for (i = (binary.count - 1)) (i >= 0) (i--)
+        {
+            val = binary[i]
+            if (val == "1")
+            {
+                result += base
+            }
+            base = (base * 2)
+        }
+ 
+        return = result
+    }
+
     split = (str, delimitters)
     {
         items = { count = 0 }
@@ -16,7 +33,7 @@ util =
                 if(c == d)
                 {
                     is_split = true
-                    // todo - add 'break' to the language
+                    // todo - add 'break' to garlic
                     j = delimitters.length 
                 }
             }
