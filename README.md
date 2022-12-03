@@ -4,7 +4,8 @@
 - 2015 c#
 - 2019 c#
 - 2020 c#
-- 2021 garlic (an esolang I've been working on)
+- 2021 garlic 
+- 2022 python
 
 ### status
 |2015|🎄|2019|🚀|2020|🌴|2021|🛥️|2022|🦌|
