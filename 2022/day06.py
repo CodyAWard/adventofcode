@@ -11,12 +11,26 @@ def readStartOfMessageMarker(length):
 
 		code.append(char)
 		if len(set(code)) == length:
-			break
+			return index
 		if len(code) == length:
 			del code[0]
 
-	return index
 
 print("Part 1: ", readStartOfMessageMarker(4))
-print("Part 1: ", readStartOfMessageMarker(14))
+print("Part 2: ", readStartOfMessageMarker(14))
+
+## golf version for fun
+
+#d = open("t", "r").read()
+#def r(l):
+#	i = 0
+#	c = []
+#	for x in d:
+#		i+=1
+#		c.append(x)
+#		if len(set(c)) == l:
+#			return i
+#		if len(c) == l:
+#			del c[0]
+#print(r(4),r(14))
 
